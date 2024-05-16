@@ -56,7 +56,29 @@ class HashTable {
   }
 
   insert(key, value) {
-    // Your code here
+    let hashIndex = this.hashMod(key);
+    let existingPair = this.data[hashIndex];
+
+    let newKV = new KeyValuePair(key, value);
+
+    if (!existingPair) {
+      this.data[hashIndex] = newKV; //store key value pair if bucket is empty
+    } else {
+      let current = existingPair;
+
+      while (current) {
+        if (current.key === key) {
+          //update value for same key
+          current.value = value;
+          return;
+        }
+        if (!current.next) break;
+        current = current.next;
+      }
+      newKV.next = existingPair;
+      this.data[hashIndex] = newKV;
+    }
+    this.count++; //increment with new added key value pair
   }
 }
 
