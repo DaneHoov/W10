@@ -44,12 +44,13 @@ class HashTable {
     let hashIndex = this.hashMod(key);
     let existingPair = this.data[hashIndex];
 
-    let newKV = new KeyValuePair(key, pair);
+    let newKV = new KeyValuePair(key, value);
 
     if (!existingPair) {
       this.data[hashIndex] = newKV;
     } else {
-      newKV.next = existingPairthis.data[hashIndex] = newKV;
+      newKV.next = existingPair;
+      this.data[hashIndex] = newKV;
     }
     this.count++;
   }
